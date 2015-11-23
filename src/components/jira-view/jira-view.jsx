@@ -1,16 +1,20 @@
 var React = require('react');
 var Reflux = require('reflux');
+
+var JiraViewStore = require('./jira-view-store');
+var Actions = require('../../actions');
+
+var LoginJira = require('./login-jira');
 var IssueInput = require('./issue-input');
 
-var Actions = require('../../actions');
 
 module.exports = React.createClass({
 	mixins:[
-		// Reflux.listenTo(ImageStore, 'onChange')
+		Reflux.listenTo(JiraViewStore, 'onChange')
 	],
 	getInitialState: function(){
 		return {
-			
+			showLogin : true
 		}
 	},
 	componentWillMount: function(){
@@ -19,8 +23,7 @@ module.exports = React.createClass({
 	render: function(){
 		return(
 			<div className="jira-view">
-				<IssueInput>
-				</IssueInput>
+				{ this.state.showLogin ? <LoginJira /> : <IssueInput /> }
 			</div>
 		)
 	},
