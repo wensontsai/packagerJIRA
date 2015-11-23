@@ -1,11 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
-var JiraView = require('./jira-view/jira-view');
-var StatusView = require('./status-view/status-view');
 
-
-
-var Actions = require('../actions');
+var Actions = require('../../actions');
 
 module.exports = React.createClass({
 	mixins:[
@@ -21,12 +17,7 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		return(
-			<div className="pageCenter">
-				<div>
-					ok lets go
-				</div>
-				<JiraView></JiraView>
-				<StatusView></StatusView>
+			<div className="status-view">
 			</div>
 		)
 	},
