@@ -1,29 +1,57 @@
 var rootUrl = 'https://dressler.atlassian.net/rest/';
 var Fetch = require('whatwg-fetch');
-
-// latest/issue/JRA-9 // - to access issue object //
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 module.exports = {
 	getAuth: function(paramsObj){
 		var queryObject = {
-			method: 'POST',
-			// headers: {
-			//   'Accept': 'application/json',
-			//   'Authorization' : 'Basic ' +paramsObj.base64encoded
-			// },
+			method: 'post',
+			headers: {
+			  'Content-Type': 'application/json',
+			  'Accept': 'application/json',
+			  // 'Authorization' : 'Basic ' +paramsObj.base64encoded
+			},
 			body: JSON.stringify({
 				username : paramsObj.username,
 				password : paramsObj.password
 			})
 		}
-	// console.log(rootUrl + paramsObj.url);
-	console.log(queryObject);
-		return fetch('/api/authJira', queryObject)
-		.then(function(response){
-			// return response.json();
-			return response;
-		});
+console.log('jira-api getAuth function fetching...');
+		fetch('/api/authJira', queryObject)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(json) {
+			    console.log('parsed json', json)
+			  })
+			.catch(function(ex) {
+			    console.log('parsing failed', ex)
+			  })
 	},
+
+	// AJAX VERSION //////////////
+	// getAuth : function(paramsObj){
+	// 	$.ajax({
+	// 	     type: 'POST',
+	// 	     url: '/api/authJira',
+	// 	     data: {
+	// 			username : paramsObj.username,
+	// 			password : paramsObj.password
+	// 			},
+	// 	   })
+	// 	     .done((data) => {
+	// 	       console.log(data);
+	// 	     })
+	// 	     // .fail((jqXhr) => {
+	// 	     //   this.actions.addCharacterFail(jqXhr.responseJSON.message);
+	// 	     // });
+		 
+	// },
+
+
+
+
 	get: function(url){
 		return fetch(rootUrl + url, {
 			// headers: { 

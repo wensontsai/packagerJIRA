@@ -1,18 +1,10 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var port = 8000;
 
+var Client = require('node-rest-client').Client;
 
-
-// =================
-// regular Routes
-// =================
-app.get('/', function(req, res, next) {
-  // Handle the get for this route
-});
-app.post('/', function(req, res, next) {
- // Handle the post for this route
-});
 
 // =================
 // middleware //
@@ -30,6 +22,15 @@ app.use(function(req, res, next) {
 });
 
 
+// =================
+// regular Routes
+// =================
+app.get('/', function(req, res, next) {
+  // res.send("welcome!");
+});
+app.post('/', function(req, res, next) {
+ // Handle the post for this route
+});
  
 // =================
 // API Routes
@@ -42,7 +43,8 @@ var apiRoutes = express.Router();
 app.use('/api', apiRoutes);
 
 
-apiRoutes.post('/authJira', function(req, res){
+apiRoutes.post('/authJira', function(req, res, next){
+	console.log('yo wtf');
 	client = new Client();
 	// Provide user credentials, which will be used to log in to JIRA.
 	var loginArgs = {
@@ -54,7 +56,7 @@ apiRoutes.post('/authJira', function(req, res){
 	                "Content-Type": "application/json"
 	        } 
 	};
-	console.log(loginArgs);
+console.log(loginArgs.data);
 	client.post("https://dressler.atlassian.net/rest/auth/1/session", loginArgs, function(data, response){
 	        if (response.statusCode == 200) {
 	                console.log('succesfully logged in, session:', data.session);
@@ -78,7 +80,7 @@ apiRoutes.post('/authJira', function(req, res){
 	                });
 	        }
 	        else {
-	                throw "Login failed :(";
+	                console.log("Login failed :(");
 	        }
 	});
 });
@@ -92,5 +94,5 @@ apiRoutes.post('/authJira', function(req, res){
 // =================
 // node server up
 // =================
-app.listen(process.env.PORT || 8000);
+app.listen(process.env.PORT || port);
 console.log('Magic is happening at http://localhost:' +port);

@@ -21,15 +21,17 @@ module.exports = Reflux.createStore({
 	// },
 	authJira: function(username, password){
 		var paramsObj = {
-			url: 'auth/1/session',
+			// url: 'auth/1/session',
 			// base64encoded : window.btoa(username +":"+ password)
 			username: username,
 			password: password
 		};
+console.log("juss chekiin");
+console.log(paramsObj);
 		// AJAX request thru Fetch
 		JiraApi.getAuth(paramsObj)
 			.then(function(data){
-
+				console.log(data);
 			});
 	},
 

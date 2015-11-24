@@ -10,6 +10,7 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 var util = require('gulp-util');
+var nodemon = require('gulp-nodemon');
 
 
 var notify = function(error) {
@@ -71,7 +72,7 @@ gulp.task('serve', function(done) {
           }
         }
       },
-      open: true
+      open: false
     }));
 });
 
@@ -82,8 +83,27 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./public/'));
 });
 
-gulp.task('default', ['build', 'serve', 'sass', 'watch']);
+// gulp.task('default', function() {
+//   // listen for changes
+//   livereload.listen();
+//   // configure nodemon
+//   nodemon({
+//     // the script to run the app
+//     script: 'server.js',
+//     ext: 'js'
+//   }).on('restart', function(){
+//     // when the app has restarted, run livereload.
+//     gulp.src('server.js')
+//       .pipe(livereload())
+//       .pipe(notify('Reloading page, please wait...'));
+//   })
+// })
+
 
 gulp.task('watch', function () {
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
+
+// gulp.task('default', ['build', 'serve', 'sass', 'watch']);
+gulp.task('default', ['build','sass']);
+
