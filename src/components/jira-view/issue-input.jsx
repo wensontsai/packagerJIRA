@@ -3,13 +3,15 @@ var Reflux = require('reflux');
 
 var Actions = require('../../actions');
 
+var IssuesList = require('./issues-list');
+
 module.exports = React.createClass({
 	mixins:[
 		// Reflux.listenTo(ImageStore, 'onChange')
 	],
 	getInitialState: function(){
 		return {
-			jiraIssue : ''
+			jiraIssue : '',
 		}
 	},
 	componentDidMount: function(){
@@ -19,11 +21,17 @@ module.exports = React.createClass({
 		return(
 			<div className="issue-input">
 				<input value={this.state.jiraIssue} placeholder="Enter Jira issue link" />
-				<button onClick={this.queryJira}>Query</button>
+				<button onClick={this.addToIssues}>Add</button>
+				<div>
+					<IssuesList />
+				</div>
 			</div>
 		)
 	},
-	queryJira: function(){
+	addToIssues: function(){
+		
+	},
+	// queryJira: function(){
 		// query jira api for all attachments
 		// allow user to select attachments to add
 		//	// on add, call a script to do the computations
@@ -35,7 +43,7 @@ module.exports = React.createClass({
 		//  // 5. query jira api, and upload as attachment to proper package issue#
 		//	// 6. query jira api, and comment leaving correct instructions
 		//  7.  links to jira issue with everything completed and ready to send over
-	},
+	// },
 	componentWillReceiveProps: function(nextProps){
 		
 	},

@@ -17,11 +17,7 @@ module.exports = React.createClass({
 			username : '',
 			password : '',
 			token : '',
-			worked : "not yet"
 		}
-	},
-	componentDidMount: function(){
-		this.getCookie();
 	},
 	render: function(){
 		return(
@@ -29,12 +25,8 @@ module.exports = React.createClass({
 				<input type="text" placeholder="username" valueLink={this.linkState('username')}/>
 				<input type="password" placeholder="password" valueLink={this.linkState('password')}/>
 				<button onClick={this.authJira}>Authenticate Jira</button>
-				{this.state.worked}
 			</div>
 		)
-	},
-	getCookie: function(){
-		Actions.getCookie();
 	},
 	authJira: function(){
 		Actions.authJira(this.state.username, this.state.password);
@@ -42,7 +34,7 @@ module.exports = React.createClass({
 	getIssue: function(){
 		Actions.getIssue();
 	},
-	queryJira: function(){
+	// queryJira: function(){
 		// query jira api for all attachments
 		// allow user to select attachments to add
 		//	// on add, call a script to do the computations
@@ -54,7 +46,7 @@ module.exports = React.createClass({
 		//  // 5. query jira api, and upload as attachment to proper package issue#
 		//	// 6. query jira api, and comment leaving correct instructions
 		//  7.  links to jira issue with everything completed and ready to send over
-	},
+	// },
 	componentWillReceiveProps: function(nextProps){
 		
 	},

@@ -14,11 +14,23 @@ module.exports = React.createClass({
 	],
 	getInitialState: function(){
 		return {
-			showLogin : true
+			showLogin : false
 		}
 	},
 	componentDidMount: function(){
-
+		var cookieName = 'JSESSIONID';
+		this.checkCookie(cookieName);
+	},
+	checkCookie: function(name){
+		var value = "; " + document.cookie;
+		var parts = value.split("; " + name + "=");
+		console.log(parts);
+		if (parts.length === 2) {
+			this.setState({ showLogin: false });
+			console.log(parts.pop().split(";").shift());
+			return parts.pop().split(";").shift();
+		}
+		return this.setState({ showLogin: true });
 	},
 	render: function(){
 		return(
@@ -30,7 +42,9 @@ module.exports = React.createClass({
 	componentWillReceiveProps: function(nextProps){
 		
 	},
-	onChange: function(event, images){
-
+	onChange: function(event, showLogin){
+		this.setState({
+			showLogin: showLogin
+		});
 	}
 });

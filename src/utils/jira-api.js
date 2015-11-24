@@ -1,9 +1,13 @@
 var rootUrl = 'https://dressler.atlassian.net/rest/';
 var Fetch = require('whatwg-fetch');
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+// require('es6-promise').polyfill();
+// require('isomorphic-fetch');
 
 module.exports = {
+	//=========================//
+	// FETCH version           //
+	//=========================//
+
 // 	getAuth: function(paramsObj){
 // 		var queryObject = {
 // 			method: 'post',
@@ -17,7 +21,6 @@ module.exports = {
 // 				password : paramsObj.password
 // 			})
 // 		}
-// console.log('jira-api getAuth function fetching...');
 // 		fetch('/api/authJira', queryObject)
 // 			// .then(function(response){
 // 			// 	return response.json();
@@ -30,22 +33,24 @@ module.exports = {
 // 			//   })
 // 	},
 
-	// AJAX VERSION //////////////
-	getAuth : function(paramsObj){
+	//=========================//
+	// AJAX version            //
+	//=========================//
+	getAuth : function(paramsObj, callback){
 		$.ajax({
-		     type: 'POST',
-		     url: '/api/authJira',
-		     data: {
+				type: 'POST',
+				url: '/api/authJira',
+				data: {
 				username : paramsObj.username,
 				password : paramsObj.password
 				},
-		   })
-		     .done((data) => {
-		       console.log(data);
-		     })
-		     // .fail((jqXhr) => {
-		     //   this.actions.addCharacterFail(jqXhr.responseJSON.message);
-		     // });
+			})
+			.done((data) => {
+				callback(data);
+			})
+			// .fail((jqXhr) => {
+			//   this.actions.addCharacterFail(jqXhr.responseJSON.message);
+			// });
 		 
 	},
 

@@ -45,9 +45,11 @@ var apiRoutes = express.Router();
 // ------------------------------------
 app.use('/api', apiRoutes);
 
+// apiRoutes.get('/checkCookie', function(req, res, next){
+// 	res.send(req.cookies.JSESSIONID);
+// });
 
 apiRoutes.post('/authJira', function(req, res, next){
-console.log(req.cookies);
 	client = new Client();
 	// Provide user credentials, which will be used to log in to JIRA.
 	var loginArgs = {
@@ -61,11 +63,14 @@ console.log(req.cookies);
 	};
 	client.post("https://dressler.atlassian.net/rest/auth/1/session", loginArgs, function(data, response){
         if (response.statusCode == 200) {
-            console.log('succesfully logged in, session:', data.session);
+            console.log('successfully logged in!');
             var session = data.session;
 			var token = session.name + '=' + session.value;
-			// set cookie //
-			res.cookie(session.name, session.value, { maxAge: 900000, httpOnly: false}).send('Token is set as cookie');
+
+			//-----------set cookie----------------------//
+			res.cookie(session.name, session.value, { expires: new Date(253402300000000), httpOnly: false}).send('success');
+			//-------------------------------------------//
+
         }
         else {
             console.log("Login failed :(");
