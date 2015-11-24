@@ -29,10 +29,12 @@ module.exports = Reflux.createStore({
 console.log("juss chekiin");
 console.log(paramsObj);
 		// AJAX request thru Fetch
-		JiraApi.getAuth(paramsObj)
-			.then(function(data){
-				console.log(data);
-			});
+		JiraApi.getAuth(paramsObj, function(data){
+			console.log(data);
+		})
+			// .then(function(data){
+			// 	console.log(data);
+			// });
 	},
 
 

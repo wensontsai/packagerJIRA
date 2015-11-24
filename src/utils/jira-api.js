@@ -4,50 +4,50 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 module.exports = {
-	getAuth: function(paramsObj){
-		var queryObject = {
-			method: 'post',
-			headers: {
-			  'Content-Type': 'application/json',
-			  'Accept': 'application/json',
-			  // 'Authorization' : 'Basic ' +paramsObj.base64encoded
-			},
-			body: JSON.stringify({
-				username : paramsObj.username,
-				password : paramsObj.password
-			})
-		}
-console.log('jira-api getAuth function fetching...');
-		fetch('/api/authJira', queryObject)
-			.then(function(response){
-				return response.json();
-			})
-			.then(function(json) {
-			    console.log('parsed json', json)
-			  })
-			.catch(function(ex) {
-			    console.log('parsing failed', ex)
-			  })
-	},
+// 	getAuth: function(paramsObj){
+// 		var queryObject = {
+// 			method: 'post',
+// 			headers: {
+// 			  'Content-Type': 'application/json',
+// 			  'Accept': 'application/json',
+// 			  // 'Authorization' : 'Basic ' +paramsObj.base64encoded
+// 			},
+// 			body: JSON.stringify({
+// 				username : paramsObj.username,
+// 				password : paramsObj.password
+// 			})
+// 		}
+// console.log('jira-api getAuth function fetching...');
+// 		fetch('/api/authJira', queryObject)
+// 			// .then(function(response){
+// 			// 	return response.json();
+// 			// })
+// 			// .then(function(json) {
+// 			//     console.log('parsed json', json)
+// 			//   })
+// 			// .catch(function(ex) {
+// 			//     console.log('parsing failed', ex)
+// 			//   })
+// 	},
 
 	// AJAX VERSION //////////////
-	// getAuth : function(paramsObj){
-	// 	$.ajax({
-	// 	     type: 'POST',
-	// 	     url: '/api/authJira',
-	// 	     data: {
-	// 			username : paramsObj.username,
-	// 			password : paramsObj.password
-	// 			},
-	// 	   })
-	// 	     .done((data) => {
-	// 	       console.log(data);
-	// 	     })
-	// 	     // .fail((jqXhr) => {
-	// 	     //   this.actions.addCharacterFail(jqXhr.responseJSON.message);
-	// 	     // });
+	getAuth : function(paramsObj){
+		$.ajax({
+		     type: 'POST',
+		     url: '/api/authJira',
+		     data: {
+				username : paramsObj.username,
+				password : paramsObj.password
+				},
+		   })
+		     .done((data) => {
+		       console.log(data);
+		     })
+		     // .fail((jqXhr) => {
+		     //   this.actions.addCharacterFail(jqXhr.responseJSON.message);
+		     // });
 		 
-	// },
+	},
 
 
 

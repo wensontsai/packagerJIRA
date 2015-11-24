@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 // enabling CORS //
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -46,6 +47,7 @@ app.use('/api', apiRoutes);
 
 
 apiRoutes.post('/authJira', function(req, res, next){
+console.log(req.cookies);
 	client = new Client();
 	// Provide user credentials, which will be used to log in to JIRA.
 	var loginArgs = {
@@ -66,7 +68,7 @@ apiRoutes.post('/authJira', function(req, res, next){
 			res.cookie(session.name, session.value, { maxAge: 900000, httpOnly: false}).send('Token is set as cookie');
         }
         else {
-                console.log("Login failed :(");
+            console.log("Login failed :(");
         }
 	});
 });
