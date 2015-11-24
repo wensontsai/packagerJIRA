@@ -10,11 +10,14 @@ var IssueInput = require('./issue-input');
 
 module.exports = React.createClass({
 	mixins:[
-		Reflux.listenTo(JiraViewStore, 'onChange')
+		Reflux.listenTo(JiraViewStore, 'onChange'),
+		Reflux.listenTo(Actions.authFailure, 'authFailed'),
+		Reflux.listenTo(Actions.authFailure, 'authSucceeded'),
 	],
 	getInitialState: function(){
 		return {
-			showLogin : false
+			showLogin : false,
+			errorMsg : ''
 		}
 	},
 	componentDidMount: function(){
@@ -36,15 +39,30 @@ module.exports = React.createClass({
 		return(
 			<div className="jira-view">
 				{ this.state.showLogin ? <LoginJira /> : <IssueInput /> }
+				<div className="errorMsg">
+					{this.state.errorMsg}
+				</div>
 			</div>
 		)
 	},
 	componentWillReceiveProps: function(nextProps){
 		
 	},
-	onChange: function(event, showLogin){
+	// onChange: function(event, showLogin){
+	// 	this.setState({
+	// 		showLogin: showLogin
+	// 	});
+	// },
+	authFailed: function(event, showLogin){
 		this.setState({
-			showLogin: showLogin
+			showLogin: true,
+			errorMsg: "wtff broo"
+		});
+	},
+	authSucceeded: function(event, showLogin){
+		this.setState({
+			showLogin: false,
+			errorMsg: 'logged in'
 		});
 	}
 });

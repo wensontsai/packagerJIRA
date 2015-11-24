@@ -4,5 +4,6 @@ module.exports = Reflux.createActions([
 	'getCookie',
 	'authJira',
 	'getIssue',
-	'authSuccess'
+	'authSuccess',
+	'authFailure'
 ]);

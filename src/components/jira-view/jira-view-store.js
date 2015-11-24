@@ -31,9 +31,9 @@ module.exports = Reflux.createStore({
 		//=========================//
 		JiraApi.getAuth(paramsObj, function(data){
 			if(data === 'success'){
-				this.showLogin = 'false';
 				Actions.authSuccess();
-			}
+			} 
+			Actions.authFailure();
 		});
 	},
 	getIssue: function(){
@@ -41,27 +41,29 @@ module.exports = Reflux.createStore({
 // 			.then(function(data){
 // console.log(data);
 // 			});
-		var jiraApi = require('jira').JiraApi;
+// 		var jiraApi = require('jira').JiraApi;
 
-		var config = {
-		    "username": "wenson.tsai",
-		    "password": "password",
-		    "port": 443,
-		    "host": "dressler.atlassian.net"
-		}
-console.log(config);
-		var issueNumber = "WQS-14";
+// 		var config = {
+// 		    "username": "wenson.tsai",
+// 		    "password": "password",
+// 		    "port": 443,
+// 		    "host": "dressler.atlassian.net"
+// 		}
+// console.log(config);
+// 		var issueNumber = "WQS-14";
 
-		var jira = new jiraApi('https', config.host, config.port, config.username, config.password, '2');
-		jira.findIssue(issueNumber, function(error, issue) {
-		    console.log('Status: ' + issue.fields.status.name);
-		});
+// 		var jira = new jiraApi('https', config.host, config.port, config.username, config.password, '2');
+// 		jira.findIssue(issueNumber, function(error, issue) {
+// 		    console.log('Status: ' + issue.fields.status.name);
+// 		});
 	},
-	getCookie: function(){
-
+	authFailure: function(){
+		this.errorMsg = 'Login Failed!'
+		this.trigger('change', this.errorMsg);
 	},
 	authSuccess: function(){
 		// Reflux emits 'change' : Reflux.trigger(event, emitObj)
+		this.showLogin = 'false';
 		this.trigger('change', this.showLogin);
 	}
 });

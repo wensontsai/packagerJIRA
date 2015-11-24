@@ -20,6 +20,9 @@ module.exports = React.createClass({
 	render: function(){
 		return(
 			<div className="issue-input">
+				<div>
+					Add JIRA issues
+				</div>
 				<input value={this.state.jiraIssue} placeholder="Enter Jira issue link" />
 				<button onClick={this.addToIssues}>Add</button>
 				<div>
