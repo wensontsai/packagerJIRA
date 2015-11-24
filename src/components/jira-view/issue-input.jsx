@@ -12,7 +12,7 @@ module.exports = React.createClass({
 			jiraIssue : ''
 		}
 	},
-	componentWillMount: function(){
+	componentDidMount: function(){
 
 	},
 	render: function(){

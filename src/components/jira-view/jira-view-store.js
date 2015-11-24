@@ -20,62 +20,22 @@ module.exports = Reflux.createStore({
 	// 			}.bind(this) );
 	// },
 	authJira: function(username, password){
-// 		var paramsObj = {
-// 			url: 'auth/1/session',
-// 			base64encoded : window.btoa(username +":"+ password)
-// 		};
-// console.log(paramsObj);
-// 		// AJAX request thru Fetch
-// 		JiraApi.getAuth(paramsObj)
-// 			.then(function(data){
-// 				console.log(data);
-// 				this.worked = "yes talked to JIRA!";
-// 				this.triggerChange();
-// 				this.setCookie(data.name, data.value, 365);
-// 			});
-		
-		client = new Client();
-		// Provide user credentials, which will be used to log in to JIRA.
-		var loginArgs = {
-		        data: {
-		                "username": username,
-		                "password": password
-		        },
-		        headers: {
-		                "Content-Type": "application/json"
-		        } 
+		var paramsObj = {
+			url: 'auth/1/session',
+			// base64encoded : window.btoa(username +":"+ password)
+			username: username,
+			password: password
 		};
-		client.post("https://dressler.atlassian.net/rest/auth/1/session", loginArgs, function(data, response){
-		        if (response.statusCode == 200) {
-		                console.log('succesfully logged in, session:', data.session);
-		                var session = data.session;
-		                // Get the session information and store it in a cookie in the header
-		                var searchArgs = {
-		                        headers: {
-										// Set the cookie from the session information
-		                                cookie: session.name + '=' + session.value,
-		                                "Content-Type": "application/json"
-		                        },
-		                        data: {
-										// Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
-		                                jql: "type=Bug AND status=Closed"
-		                        }
-		                };
-						// Make the request return the search results, passing the header information including the cookie.
-		                client.post("https://dressler.atlassian.net/rest/api/2/search", searchArgs, function(searchResult, response) {
-		                        console.log('status code:', response.statusCode);
-		                        console.log('search result:', searchResult);
-		                });
-		        }
-		        else {
-		                throw "Login failed :(";
-		        }
-		});
+		// AJAX request thru Fetch
+		JiraApi.getAuth(paramsObj)
+			.then(function(data){
 
-
-
-
+			});
 	},
+
+
+
+
 	getIssue: function(){
 // 		JiraApi.get('api/latest/issue/WQS-11')
 // 			.then(function(data){
@@ -96,10 +56,6 @@ console.log(config);
 		jira.findIssue(issueNumber, function(error, issue) {
 		    console.log('Status: ' + issue.fields.status.name);
 		});
-
-
-
-
 	},
 	getCookie: function(){
 		var dc = document.cookie;

@@ -16,10 +16,12 @@ module.exports = {
 				password : paramsObj.password
 			})
 		}
-	console.log(rootUrl + paramsObj.url);
-		return fetch(rootUrl + paramsObj.url, queryObject)
+	// console.log(rootUrl + paramsObj.url);
+	console.log(queryObject);
+		return fetch('/api/authJira', queryObject)
 		.then(function(response){
-			return response.json();
+			// return response.json();
+			return response;
 		});
 	},
 	get: function(url){

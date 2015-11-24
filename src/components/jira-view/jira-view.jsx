@@ -17,7 +17,7 @@ module.exports = React.createClass({
 			showLogin : true
 		}
 	},
-	componentWillMount: function(){
+	componentDidMount: function(){
 
 	},
 	render: function(){

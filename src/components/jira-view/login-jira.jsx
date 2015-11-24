@@ -3,6 +3,8 @@ var Reflux = require('reflux');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var Actions = require('../../actions');
 
+var Client = require('node-rest-client').Client;
+
 var JiraViewStore = require('./jira-view-store');
 
 module.exports = React.createClass({
@@ -26,7 +28,7 @@ module.exports = React.createClass({
 			<div className="login-view">
 				<input type="text" placeholder="username" valueLink={this.linkState('username')}/>
 				<input type="password" placeholder="password" valueLink={this.linkState('password')}/>
-				<button onClick={this.getIssue}>Authenticate Jira</button>
+				<button onClick={this.authJira}>Authenticate Jira</button>
 				{this.state.worked}
 			</div>
 		)
