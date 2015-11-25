@@ -47,8 +47,5 @@ module.exports = React.createClass({
 			username: '',
 			password: ''
 		});
-	},
-	getIssue: function(){
-		Actions.getIssue();
 	}
 });

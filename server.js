@@ -68,7 +68,7 @@ apiRoutes.post('/authJira', function(req, res, next){
 			var token = session.name + '=' + session.value;
 
 			//-----------set cookie----------------------//
-			res.cookie(session.name, session.value, { expires: new Date(253402300000000), httpOnly: false}).send('success');
+			res.cookie('Set-Cookie', session.name + '=' + session.value, { expires: new Date(253402300000000), httpOnly: false}).send('success');
 			//-------------------------------------------//
 
         }
@@ -79,9 +79,9 @@ apiRoutes.post('/authJira', function(req, res, next){
 	});
 });
 
-apiRoutes.post('/getIssue', function(req, res, next){
+apiRoutes.post('/queryIssue', function(req, res, next){
 	// Get the session information and store it in a cookie in the header
-	var searchArgs = {
+	var queryArgs = {
         headers: {
 			// Set the cookie from the session information
             cookie: session.name + '=' + session.value,
@@ -94,7 +94,9 @@ apiRoutes.post('/getIssue', function(req, res, next){
 	};
 
 	// Make the request return the search results, passing the header information including the cookie.
-	client.post("https://dressler.atlassian.net/rest/api/latest/issue/WQS-14", searchArgs, function(searchResult, response) {
+    client = new Client();
+console.log("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue);
+	client.get("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue, queryArgs, function(searchResult, response) {
 	    console.log('status code:', response.statusCode);
 	    console.log('search result:', searchResult);
 	});

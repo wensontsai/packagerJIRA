@@ -24,15 +24,24 @@ module.exports = Reflux.createStore({
 		}
 	},
 	checkCookie: function(){
-		var name = 'JSESSIONID';
-		var value = "; " + document.cookie;
-		var parts = value.split("; " + name + "=");
-		if (parts.length === 2) {
-			this.setState({ showLogin: false });
-			console.log(parts.pop().split(";").shift());
-			return parts.pop().split(";").shift();
+		var value = document.cookie;
+		var cookies = value.split("; ");
+console.log(cookies);
+		for(i in cookies){
+			if(cookies[i].indexOf("=")  >= 0 ){
+				var splitVal = cookies[i].split("=");
+				if(splitVal.indexOf("JSESSIONID") >= 0){
+					var token = splitVal[1];
+console.log(token);
+					if(token){
+						// They've been here before.
+						this.setState({ showLogin: false });
+					} else {
+						this.setState({ showLogin: true });
+					}
+				}
+			}
 		}
-		this.setState({ showLogin: true });
 	},
 	authJira: function(username, password){
 		var paramsObj = {
@@ -64,9 +73,23 @@ module.exports = Reflux.createStore({
 	addToIssues: function(issue){
 		this.setState({ issuesArray: this.state.issuesArray.concat([issue]) });
 		console.log(this.state.issuesArray);
+		// hit up JIRA api //
+		this.queryIssue(issue);
 	},
-	getIssue: function(){
-	
+	queryIssue: function(issue){
+		var paramsObj = {
+			issue : issue
+		}
+		JiraApi.queryIssue(paramsObj, function(data){
+			if(data === 'success'){
+				console.log("ʕ •ᴥ•ʔ");
+				// this.setState({ showLogin : false });
+			}
+			if(data === 'fail'){
+				console.log("(╯°□°)╯︵ ┻━┻");
+				// this.setState({ errorMsg: 'login failed :(' });
+			}
+		}.bind(this) );
 	}
 
 });

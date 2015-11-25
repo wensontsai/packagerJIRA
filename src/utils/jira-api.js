@@ -41,8 +41,8 @@ module.exports = {
 				type: 'POST',
 				url: '/api/authJira',
 				data: {
-				username : paramsObj.username,
-				password : paramsObj.password
+					username : paramsObj.username,
+					password : paramsObj.password
 				},
 			})
 			.done((data) => {
@@ -53,10 +53,22 @@ module.exports = {
 			// });
 		 
 	},
-
-
-
-
+	queryIssue : function(paramsObj, callback){
+		$.ajax({
+				type: 'POST',
+				url: '/api/queryIssue',
+				data: {
+					issue : paramsObj.issue
+				},
+			})
+			.done((data) => {
+				callback(data);
+			})
+			// .fail((jqXhr) => {
+			//   this.actions.addCharacterFail(jqXhr.responseJSON.message);
+			// });
+		 
+	},
 	get: function(url){
 		return fetch(rootUrl + url, {
 			// headers: { 
