@@ -83,10 +83,11 @@ gulp.task('serve', function (cb) {
         watch   : ['js', 'html'],
         //...add nodeArgs: ['--debug=5858'] to debug 
         //..or nodeArgs: ['--debug-brk=5858'] to debug at server start
-    }).on('start', function () {
-        setTimeout(function () {
-            livereload.changed();
-        }, 2000); // wait for the server to finish loading before restarting the browsers
+    })
+    .on('start', function () {
+        // setTimeout(function () {
+            livereload.changed(35729);
+        // }, 2000); // wait for the server to finish loading before restarting the browsers
     })
     .on('change', ['watch'])
     .on('restart', function () {
