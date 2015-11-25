@@ -1,5 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
+var StateMixin = require('reflux-state-mixin')(Reflux); 
 
 var JiraViewStore = require('./jira-view-store');
 var Actions = require('../../actions');
@@ -10,27 +11,31 @@ var IssueInput = require('./issue-input');
 
 module.exports = React.createClass({
 	mixins:[
-		Reflux.listenTo(JiraViewStore, 'onChange')
+		// Reflux.listenTo(JiraViewStore, 'onChange'),
+		// Reflux.connect(JiraViewStore, 'currentStatus'),
+		// Reflux.ListenerMixin,
+		StateMixin.connect(JiraViewStore)
 	],
-	getInitialState: function(){
-		return {
-			showLogin : false
-		}
-	},
+	// getInitialState: function(){
+	// 	return {
+	// 		showLogin : JiraViewStore.state.showLogin,
+	// 		errorMsg : JiraViewStore.state.errorMsg
+	// 	}
+	// },
 	componentDidMount: function(){
-		var cookieName = 'JSESSIONID';
-		this.checkCookie(cookieName);
-	},
-	checkCookie: function(name){
-		var value = "; " + document.cookie;
-		var parts = value.split("; " + name + "=");
-		console.log(parts);
-		if (parts.length === 2) {
-			this.setState({ showLogin: false });
-			console.log(parts.pop().split(";").shift());
-			return parts.pop().split(";").shift();
-		}
-		return this.setState({ showLogin: true });
+		// listen to store updates on state
+		// this.listenTo(JiraViewStore.showLogin, this.updateShowLogin);
+		// this.listenTo(JiraViewStore.errorMsg, this.updateErrorMsg);
+		console.log(this.state.showLogin);
+		console.log(this.state.errorMsg);
+		// this.listenTo(
+  //           JiraViewStore,
+  //           (state)=>{
+  //               this.setState({
+  //                   showLogin: state.showLogin,
+  //                   errorMsg: state.errorMsg
+  //               })
+  //           });
 	},
 	render: function(){
 		return(
@@ -42,9 +47,15 @@ module.exports = React.createClass({
 	componentWillReceiveProps: function(nextProps){
 		
 	},
-	onChange: function(event, showLogin){
-		this.setState({
-			showLogin: showLogin
-		});
-	}
+	// updateShowLogin: function(){
+	// 	this.setState({ showLogin : showLogin });
+	// },
+	// updateErrorMsg: function(){
+	// 	this.setState({ errorMsg : errorMsg });
+	// },
+	// onChange: function(event, showLogin){
+	// 	this.setState({
+	// 		showLogin: showLogin
+	// 	});
+	// }
 });
