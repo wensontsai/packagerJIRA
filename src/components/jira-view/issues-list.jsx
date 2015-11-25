@@ -1,36 +1,33 @@
 var React = require('react');
 var Reflux = require('reflux');
-
+var StateMixin = require('reflux-state-mixin')(Reflux); 
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var Actions = require('../../actions');
+
+var JiraViewStore = require('./jira-view-store');
 
 module.exports = React.createClass({
 	mixins: [
-		// Reflux.listenTo(ImageStore, 'onChange')
+		LinkedStateMixin,
+		StateMixin.connect(JiraViewStore)
 	],
-	getInitialState: function(){
-		return{
-			IssuesArray : []
-		}
-	},
 	componentWillMount: function(){
 		// Actions.getImages(this.props.params.id);
 	},
 	render: function(){
 		return(
 			<div className="topic">
-				{this.renderIssues()}
+				<ul>
+					{this.renderIssues()}
+				</ul>
 			</div>
 		);	
 	},
 	renderIssues: function(){
-		return this.state.IssuesArray.map(function(issue){
-			return <IssuesList key={issue.id} {...issue} />
+		return this.state.issuesArray.map(function(issue){
+			return (
+				<li key={issue.id} {...issue}>{issue}</li>
+			)
 		});
-	},
-	componentWillReceiveProps: function(nextProps){
-		// Actions.getImages(nextProps.params.id);
-	},
-	onChange: function(event, images){
-		// this.setState( {images: images} )
 	}
 });

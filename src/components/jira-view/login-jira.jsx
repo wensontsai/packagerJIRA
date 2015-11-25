@@ -4,8 +4,6 @@ var StateMixin = require('reflux-state-mixin')(Reflux);
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var Actions = require('../../actions');
 
-var Client = require('node-rest-client').Client;
-
 var JiraViewStore = require('./jira-view-store');
 
 module.exports = React.createClass({
