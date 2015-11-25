@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 // enabling CORS //
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -83,19 +82,19 @@ apiRoutes.post('/queryIssue', function(req, res, next){
 	// Get the session information and store it in a cookie in the header
 	var queryArgs = {
         headers: {
-			// Set the cookie from the session information
-            cookie: session.name + '=' + session.value,
-            "Content-Type": "application/json"
+          // Set the cookie from the session information
+          cookie: req.body.token,
+          "Content-Type": "application/json"
         },
         data: {
-			// Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
-            // jql: "type=Bug AND status=Closed"
+          // Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
+          // jql: "type=Bug AND status=Closed"
         }
 	};
 
 	// Make the request return the search results, passing the header information including the cookie.
-    client = new Client();
-console.log("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue);
+  client = new Client();
+  console.log("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue);
 	client.get("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue, queryArgs, function(searchResult, response) {
 	    console.log('status code:', response.statusCode);
 	    console.log('search result:', searchResult);

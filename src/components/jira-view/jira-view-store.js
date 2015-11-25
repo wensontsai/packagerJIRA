@@ -20,7 +20,8 @@ module.exports = Reflux.createStore({
 			showLogin : true,
 			errorMsg : '',
 			// JIRA issues //
-			issuesArray : []
+			issuesArray : [],
+			token : ''
 		}
 	},
 	checkCookie: function(){
@@ -32,15 +33,18 @@ console.log(cookies);
 				var splitVal = cookies[i].split("=");
 				if(splitVal.indexOf("JSESSIONID") >= 0){
 					var token = splitVal[1];
-console.log(token);
+console.log(splitVal[0] +'='+ splitVal[1]);
 					if(token){
 						// They've been here before.
-						this.setState({ showLogin: false });
-					} else {
-						this.setState({ showLogin: true });
-					}
+						this.setState({ 
+							token: splitVal[0] +'='+ splitVal[1],
+							showLogin: false 
+						});
+						return;
+					} 	
 				}
 			}
+		this.setState({ showLogin: true });
 		}
 	},
 	authJira: function(username, password){
@@ -78,7 +82,8 @@ console.log(token);
 	},
 	queryIssue: function(issue){
 		var paramsObj = {
-			issue : issue
+			issue : issue,
+			token: this.state.token
 		}
 		JiraApi.queryIssue(paramsObj, function(data){
 			if(data === 'success'){

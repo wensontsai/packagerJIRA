@@ -58,7 +58,8 @@ module.exports = {
 				type: 'POST',
 				url: '/api/queryIssue',
 				data: {
-					issue : paramsObj.issue
+					issue : paramsObj.issue,
+					token : paramsObj.token
 				},
 			})
 			.done((data) => {
@@ -69,20 +70,20 @@ module.exports = {
 			// });
 		 
 	},
-	get: function(url){
-		return fetch(rootUrl + url, {
-			// headers: { 
-			// 	'Authorization': 'Client-ID ' + apiKey
-			// }
+	// get: function(url){
+	// 	return fetch(rootUrl + url, {
+	// 		// headers: { 
+	// 		// 	'Authorization': 'Client-ID ' + apiKey
+	// 		// }
 
-			// *********************************
-			// include cookie in header?
-			// *********************************
+	// 		// *********************************
+	// 		// include cookie in header?
+	// 		// *********************************
 
-		})
-		.then(function(response){
-			return response.json();
-		});
-	},
+	// 	})
+	// 	.then(function(response){
+	// 		return response.json();
+	// 	});
+	// },
 	
 };
