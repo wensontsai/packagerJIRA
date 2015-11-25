@@ -79,12 +79,16 @@ apiRoutes.post('/authJira', function(req, res, next){
 });
 
 apiRoutes.post('/queryIssue', function(req, res, next){
+  console.log(req.body.token);
 	// Get the session information and store it in a cookie in the header
 	var queryArgs = {
+        method: 'POST',
         headers: {
           // Set the cookie from the session information
-          cookie: req.body.token,
-          "Content-Type": "application/json"
+          // "cookie" : req.body.token + "Path=/; HttpOnly",
+          "cookie" : req.body.token,
+          "Content-Type": "application/json",
+          // "Accept": "application/json"
         },
         data: {
           // Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
@@ -94,10 +98,11 @@ apiRoutes.post('/queryIssue', function(req, res, next){
 
 	// Make the request return the search results, passing the header information including the cookie.
   client = new Client();
-  console.log("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue);
-	client.get("https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue, queryArgs, function(searchResult, response) {
+  var url = "https://dressler.atlassian.net/rest/api/latest/issue/" +req.body.issue;
+  console.log(url);
+	client.post(url, queryArgs, function(response) {
 	    console.log('status code:', response.statusCode);
-	    console.log('search result:', searchResult);
+	    console.log('query result:', response);
 	});
 });
 
