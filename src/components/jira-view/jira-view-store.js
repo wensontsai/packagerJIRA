@@ -1,4 +1,4 @@
-var Reflux = require('reflux');
+var React = require('react');var Reflux = require('reflux');
 var StateMixin = require('reflux-state-mixin')(Reflux); 
 var Actions = require('../../actions');
 
@@ -16,25 +16,21 @@ module.exports = Reflux.createStore({
 	],
 	getInitialState: function(){
 		return {
-			showLogin : false,
+			showLogin : true,
 			errorMsg : ''
 		}
 	},
-	componentDidMount: function(){
-		// check for cookie and update showLogin state
-		var cookieName = 'JSESSIONID';
-		this.checkCookie(cookieName);
-	},
-	checkCookie: function(name){
+	checkCookie: function(){
+		var name = 'JSESSIONID';
 		var value = "; " + document.cookie;
 		var parts = value.split("; " + name + "=");
-		console.log(parts);
+console.log(parts);
 		if (parts.length === 2) {
 			this.setState({ showLogin: false });
 			console.log(parts.pop().split(";").shift());
 			return parts.pop().split(";").shift();
 		}
-		return this.setState({ showLogin: true });
+		this.setState({ showLogin: true });
 	},
 	authJira: function(username, password){
 		var paramsObj = {
@@ -56,12 +52,13 @@ module.exports = Reflux.createStore({
 		//=========================//
 		JiraApi.getAuth(paramsObj, function(data){
 			if(data === 'success'){
-				this.showLogin = 'false';
-				this.updateLoginView();
-				Actions.authSuccess();
-			} 
-			Actions.authFailure();
-		});
+				this.setState({ showLogin : false });
+			}
+			if(data === 'fail'){
+				this.setState({ errorMsg: 'login failed :(' });
+			}
+		}.bind(this) );
+console.log(this.state.errorMsg);
 	},
 	getIssue: function(){
 // 		JiraApi.get('api/latest/issue/WQS-11')
@@ -83,17 +80,6 @@ module.exports = Reflux.createStore({
 // 		jira.findIssue(issueNumber, function(error, issue) {
 // 		    console.log('Status: ' + issue.fields.status.name);
 // 		});
-	},
-	updateLoginView: function(){
-		this.setState({ showLogin : this.showLogin });
-	},
-	authSuccess: function(){
-		// Reflux emits 'change' : Reflux.trigger(event, emitObj)
-		// this.trigger('change', this.showLogin);
-	},
-	// storeDidUpdate: function(prevState){
-	// 	if(this.state.showLogin !== prevState.showLogin){
-	// 		console.log('showLogin value changed!');
-	// 	}
-	// }
+	}
+
 });

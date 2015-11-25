@@ -11,55 +11,20 @@ var IssueInput = require('./issue-input');
 
 module.exports = React.createClass({
 	mixins:[
-		// Reflux.listenTo(JiraViewStore, 'onChange'),
-		// Reflux.connect(JiraViewStore, 'currentStatus'),
-		// Reflux.ListenerMixin,
 		StateMixin.connect(JiraViewStore)
 	],
-	// getInitialState: function(){
-	// 	return {
-	// 		showLogin : JiraViewStore.state.showLogin,
-	// 		errorMsg : JiraViewStore.state.errorMsg
-	// 	}
-	// },
 	componentDidMount: function(){
-		// listen to store updates on state
-		// this.listenTo(JiraViewStore.showLogin, this.updateShowLogin);
-		// this.listenTo(JiraViewStore.errorMsg, this.updateErrorMsg);
-		console.log(this.state.showLogin);
-		console.log(this.state.errorMsg);
-		// this.listenTo(
-  //           JiraViewStore,
-  //           (state)=>{
-  //               this.setState({
-  //                   showLogin: state.showLogin,
-  //                   errorMsg: state.errorMsg
-  //               })
-  //           });
+		// check for cookie and update showLogin state
+		Actions.checkCookie();
 	},
 	render: function(){
 		return(
 			<div className="jira-view">
 				{ this.state.showLogin ? <LoginJira /> : <IssueInput /> }
-				<div className="errorMsg">
-					{this.state.errorMsg}
-				</div>
 			</div>
 		)
 	},
 	componentWillReceiveProps: function(nextProps){
 		
-	},
-	// updateShowLogin: function(){
-	// 	this.setState({ showLogin : showLogin });
-	// },
-	// updateErrorMsg: function(){
-	// 	this.setState({ errorMsg : errorMsg });
-	// },
-	// onChange: function(event, showLogin){
-	// 	this.setState({
-	// 		showLogin: showLogin
-	// 	});
-	// }
-
+	}
 });

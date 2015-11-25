@@ -74,6 +74,7 @@ apiRoutes.post('/authJira', function(req, res, next){
         }
         else {
             console.log("Login failed :(");
+            res.send('fail');
         }
 	});
 });
