@@ -1,21 +1,23 @@
 var React = require('react');
 var Reflux = require('reflux');
+var StateMixin = require('reflux-state-mixin')(Reflux); 
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var Actions = require('../../actions');
+
+var JiraViewStore = require('./jira-view-store');
 
 var IssuesList = require('./issues-list');
 
 module.exports = React.createClass({
 	mixins:[
-		// Reflux.listenTo(ImageStore, 'onChange')
+		LinkedStateMixin,
+		StateMixin.connect(JiraViewStore)
 	],
 	getInitialState: function(){
 		return {
-			jiraIssue : '',
+			jiraIssue : ''
 		}
-	},
-	componentDidMount: function(){
-
 	},
 	render: function(){
 		return(
@@ -23,7 +25,11 @@ module.exports = React.createClass({
 				<div>
 					Add JIRA issues
 				</div>
-				<input value={this.state.jiraIssue} placeholder="Enter Jira issue link" />
+				<input 
+					type="text" 
+					placeholder="Enter Jira issue link" 
+					valueLink={this.linkState('jiraIssue')}
+				/>
 				<button onClick={this.addToIssues}>Add</button>
 				<div>
 					<IssuesList />
@@ -32,7 +38,11 @@ module.exports = React.createClass({
 		)
 	},
 	addToIssues: function(){
-		
+		Actions.addToIssues(this.state.jiraIssue);
+		// clear UI input fields
+		this.setState({
+			jiraIssue: ''
+		});
 	},
 	// queryJira: function(){
 		// query jira api for all attachments
@@ -47,10 +57,5 @@ module.exports = React.createClass({
 		//	// 6. query jira api, and comment leaving correct instructions
 		//  7.  links to jira issue with everything completed and ready to send over
 	// },
-	componentWillReceiveProps: function(nextProps){
-		
-	},
-	onChange: function(event, images){
 
-	}
 });

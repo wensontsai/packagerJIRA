@@ -16,8 +16,11 @@ module.exports = Reflux.createStore({
 	],
 	getInitialState: function(){
 		return {
+			// auth shit //
 			showLogin : true,
-			errorMsg : ''
+			errorMsg : '',
+			// JIRA issues //
+			issuesArray : []
 		}
 	},
 	checkCookie: function(){
@@ -57,6 +60,10 @@ module.exports = Reflux.createStore({
 				this.setState({ errorMsg: 'login failed :(' });
 			}
 		}.bind(this) );
+	},
+	addToIssues: function(issue){
+		this.setState({ issuesArray: this.state.issuesArray.concat([issue]) });
+		console.log(this.state.issuesArray);
 	},
 	getIssue: function(){
 	

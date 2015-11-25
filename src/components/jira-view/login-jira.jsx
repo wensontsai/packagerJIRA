@@ -25,8 +25,16 @@ module.exports = React.createClass({
 				<div>
 					Log in to JIRA
 				</div>
-				<input ref="username" type="text" placeholder="username" valueLink={this.linkState('username')}/>
-				<input ref="password" type="password" placeholder="password" valueLink={this.linkState('password')}/>
+				<input 
+					type="text" 
+					placeholder="username" 
+					valueLink={this.linkState('username')}
+				/>
+				<input 
+					type="password" 
+					placeholder="password" 
+					valueLink={this.linkState('password')}
+				/>
 				<button onClick={this.authJira}>Authenticate Jira</button>
 				<div className="errorMsg">
 					{this.state.errorMsg}
