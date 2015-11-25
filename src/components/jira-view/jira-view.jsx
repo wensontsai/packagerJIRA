@@ -41,6 +41,9 @@ module.exports = React.createClass({
 		return(
 			<div className="jira-view">
 				{ this.state.showLogin ? <LoginJira /> : <IssueInput /> }
+				<div className="errorMsg">
+					{this.state.errorMsg}
+				</div>
 			</div>
 		)
 	},
@@ -58,4 +61,5 @@ module.exports = React.createClass({
 	// 		showLogin: showLogin
 	// 	});
 	// }
+
 });

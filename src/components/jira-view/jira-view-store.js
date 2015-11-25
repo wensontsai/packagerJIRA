@@ -59,7 +59,8 @@ module.exports = Reflux.createStore({
 				this.showLogin = 'false';
 				this.updateLoginView();
 				Actions.authSuccess();
-			}
+			} 
+			Actions.authFailure();
 		});
 	},
 	getIssue: function(){
