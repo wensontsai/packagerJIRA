@@ -86,6 +86,7 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 			token: this.state.token
 		}
 		JiraApi.queryIssue(paramsObj, function(data){
+			console.log(data);
 			if(data === 'success'){
 				console.log("ʕ •ᴥ•ʔ");
 				// this.setState({ showLogin : false });
