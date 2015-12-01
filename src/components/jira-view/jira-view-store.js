@@ -77,7 +77,11 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 	},
 	addToIssues: function(issue){
 		// hit up JIRA api //
-		this.queryIssue(issue);
+		if(issue.length > 0){
+			this.queryIssue(issue);
+			return;
+		}
+		this.setState({ errorMsg: "Please enter an issue number."});
 	},
 	queryIssue: function(issue){
 		var paramsObj = {
@@ -85,12 +89,19 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 			token: this.state.token
 		}
 		JiraApi.queryIssue(paramsObj, function(data){
-			if(data){
+			if(data !== 'fail'){
 				console.log(data.fields.attachment);
 				this.completeIssue(issue, data.fields.attachment);
+				this.setState({
+					errorMsg: ''
+				});
 				return;
 			}
-			console.log("something fuckedup brobro");
+			if(data === 'fail'){
+				this.setState({
+					errorMsg: 'Query failed!'
+				});
+			}
 		}.bind(this) );
 	},
 	completeIssue: function(issue, attachments){

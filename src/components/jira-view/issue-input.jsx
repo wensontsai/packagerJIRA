@@ -31,18 +31,23 @@ module.exports = React.createClass({
 					valueLink={this.linkState('jiraIssue')}
 				/>
 				<button onClick={this.addToIssues}>Add</button>
-				<div >
+				<div className="issuesArea">
+					{this.state.errorMsg}
 					<IssuesList />
 				</div>
 			</div>
 		)
 	},
 	addToIssues: function(){
-		Actions.addToIssues(this.state.jiraIssue);
-		// clear UI input fields
-		this.setState({
-			jiraIssue: ''
-		});
+		if(this.state.jiraIssue.length > 0){
+			Actions.addToIssues(this.state.jiraIssue);
+			// clear UI input fields
+			this.setState({
+				jiraIssue: ''
+			});
+			return;
+		}
+		this.setState({ errorMsg: "Please enter legit JIRA issue number!"});
 	},
 	// queryJira: function(){
 		// query jira api for all attachments

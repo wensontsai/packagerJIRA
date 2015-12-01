@@ -91,11 +91,15 @@ apiRoutes.post('/queryIssue', function(req, response, next){
 
   request(options, function (err, res, body) {
     if (err) {
-      console.dir(err)
-      return
+      console.dir(err);
+      return;
     }
-    body = JSON.parse(body);
-    response.send(body);
+    if(body){
+      body = JSON.parse(body);
+      response.send(body);
+    } else {
+      response.send("fail");
+    }
   }) 
   // .on('data', function(data) {
   //     res.end(JSON.parse(data));
