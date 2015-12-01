@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
 			// JIRA issues //
 			issuesArray : [],
 			token : '',
-			attachments : []
+			issueObj: {}
 		}
 	},
 	checkCookie: function(){
@@ -76,8 +76,6 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 		}.bind(this) );
 	},
 	addToIssues: function(issue){
-		this.setState({ issuesArray: this.state.issuesArray.concat([issue]) });
-		console.log(this.state.issuesArray);
 		// hit up JIRA api //
 		this.queryIssue(issue);
 	},
@@ -87,18 +85,23 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 			token: this.state.token
 		}
 		JiraApi.queryIssue(paramsObj, function(data){
-			console.log(data);
-			this.setState({ attachments: data.fields.attachment});
-			console.log(this.state.attachments);
-			if(data === 'success'){
-				console.log("ʕ •ᴥ•ʔ");
-				// this.setState({ showLogin : false });
+			if(data){
+				console.log(data.fields.attachment);
+				this.completeIssue(issue, data.fields.attachment);
+				return;
 			}
-			if(data === 'fail'){
-				console.log("(╯°□°)╯︵ ┻━┻");
-				// this.setState({ errorMsg: 'login failed :(' });
-			}
+			console.log("something fuckedup brobro");
 		}.bind(this) );
+	},
+	completeIssue: function(issue, attachments){
+		this.setState({
+			issueObj: {
+				issue: issue,
+				attachments: attachments
+			}
+		});
+		this.setState({ issuesArray: this.state.issuesArray.concat([this.state.issueObj]) });
+		console.log(this.state.issuesArray);
 	}
 
 });

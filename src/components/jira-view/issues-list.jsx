@@ -17,17 +17,37 @@ module.exports = React.createClass({
 	render: function(){
 		return(
 			<div className="topic">
-				<ul>
-					{this.renderIssues()}
-				</ul>
+				{this.renderIssues()}
 			</div>
 		);	
+	},
+	renderAttachments: function(attachmentsArray){
+		return attachmentsArray.map(function(attachment, i){
+			return (
+				<div key={i}>
+					{attachment.filename}
+				</div>
+			)
+		});
 	},
 	renderIssues: function(){
 		return this.state.issuesArray.map(function(issue){
 			return (
-				<li key={issue.id} {...issue}>{issue}</li>
+				<div key={issue.id} {...issue}>
+					<div className="issueText">
+						{issue.issue}
+					</div>
+					<div className="attachments">
+						{issue.attachments.map(function(attachment, i){
+							return (
+								<div key={i}>
+									{attachment.filename}
+								</div>
+							)
+						})}
+					</div>
+				</div>
 			)
 		});
-	}
+	},
 });
