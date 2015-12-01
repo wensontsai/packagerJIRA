@@ -32,7 +32,13 @@ module.exports = React.createClass({
 						{issue.attachments.map(function(attachment, i){
 							return (
 								<div key={i}>
-									{attachment.filename}
+									<label>
+										<input 
+											type="checkbox"
+
+										/>
+										{attachment.filename}
+									</label>
 								</div>
 							)
 						})}
@@ -41,4 +47,7 @@ module.exports = React.createClass({
 			)
 		});
 	},
+	checkedHandler: function(id){
+		console.log(id);
+	}
 });
