@@ -69,6 +69,7 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 		JiraApi.getAuth(paramsObj, function(data){
 			if(data === 'success'){
 				this.setState({ showLogin : false });
+				this.setState({ errorMsg: ''});
 			}
 			if(data === 'fail'){
 				this.setState({ errorMsg: 'login failed :(' });
@@ -92,9 +93,7 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 			if(data !== 'fail'){
 				console.log(data.fields.attachment);
 				this.completeIssue(issue, data.fields.attachment);
-				this.setState({
-					errorMsg: ''
-				});
+				this.setState({ errorMsg: ''});
 				return;
 			}
 			if(data === 'fail'){

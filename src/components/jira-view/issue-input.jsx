@@ -35,6 +35,9 @@ module.exports = React.createClass({
 					{this.state.errorMsg}
 					<IssuesList />
 				</div>
+				<div>
+					<button className="runButton">meowrr</button>
+				</div>
 			</div>
 		)
 	},
@@ -48,19 +51,6 @@ module.exports = React.createClass({
 			return;
 		}
 		this.setState({ errorMsg: "Please enter legit JIRA issue number!"});
-	},
-	// queryJira: function(){
-		// query jira api for all attachments
-		// allow user to select attachments to add
-		//	// on add, call a script to do the computations
-		//	// this script will 1.  download all attachments
-		//	// 2. unzip packages
-		//	// 3. diff packages, and only copy over folders that are duplicated
-		//	//	in more recent timestamp package
-		//	// 4.  re-package the package as production package
-		//  // 5. query jira api, and upload as attachment to proper package issue#
-		//	// 6. query jira api, and comment leaving correct instructions
-		//  7.  links to jira issue with everything completed and ready to send over
-	// },
+	}
 
 });
