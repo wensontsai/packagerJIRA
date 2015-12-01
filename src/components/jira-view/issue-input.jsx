@@ -31,7 +31,7 @@ module.exports = React.createClass({
 					valueLink={this.linkState('jiraIssue')}
 				/>
 				<button onClick={this.addToIssues}>Add</button>
-				<div>
+				<div >
 					<IssuesList />
 				</div>
 			</div>

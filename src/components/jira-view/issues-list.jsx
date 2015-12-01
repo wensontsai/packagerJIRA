@@ -21,19 +21,10 @@ module.exports = React.createClass({
 			</div>
 		);	
 	},
-	renderAttachments: function(attachmentsArray){
-		return attachmentsArray.map(function(attachment, i){
-			return (
-				<div key={i}>
-					{attachment.filename}
-				</div>
-			)
-		});
-	},
 	renderIssues: function(){
 		return this.state.issuesArray.map(function(issue){
 			return (
-				<div key={issue.id} {...issue}>
+				<div className="issuesArea" key={issue.id} {...issue}>
 					<div className="issueText">
 						{issue.issue}
 					</div>

@@ -3,3 +3,14 @@
 	background-color: red;
 	height: 250px;
 }
+.jira-view .issuesArea {
+	display: block;
+	background: green;
+	clear: both;
+}
+.jira-view .issuesArea .issueText{
+	float: left;
+}
+.jira-view .issuesArea .attachments {
+	float: right;
+}
