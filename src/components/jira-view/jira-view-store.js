@@ -21,7 +21,8 @@ module.exports = Reflux.createStore({
 			errorMsg : '',
 			// JIRA issues //
 			issuesArray : [],
-			token : ''
+			token : '',
+			attachments : []
 		}
 	},
 	checkCookie: function(){
@@ -87,6 +88,8 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 		}
 		JiraApi.queryIssue(paramsObj, function(data){
 			console.log(data);
+			this.setState({ attachments: data.fields.attachment});
+			console.log(this.state.attachments);
 			if(data === 'success'){
 				console.log("ʕ •ᴥ•ʔ");
 				// this.setState({ showLogin : false });

@@ -81,7 +81,7 @@ apiRoutes.post('/authJira', function(req, res, next){
   });
 });
 
-apiRoutes.post('/queryIssue', function(req, res, next){
+apiRoutes.post('/queryIssue', function(req, response, next){
   var options = {
     url: 'https://dressler.atlassian.net/rest/api/latest/issue/' +req.body.issue,
     headers: {
@@ -94,10 +94,12 @@ apiRoutes.post('/queryIssue', function(req, res, next){
       console.dir(err)
       return
     }
+    body = JSON.parse(body);
+    response.send(body);
   }) 
-  .on('data', function(data) {
-      res.end(data);
-    })
+  // .on('data', function(data) {
+  //     res.end(JSON.parse(data));
+  //   })
 });
 
 
