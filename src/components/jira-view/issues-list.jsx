@@ -35,7 +35,7 @@ module.exports = React.createClass({
 									<label>
 										<input 
 											type="checkbox"
-
+											onChange={this.handleChange}
 										/>
 										{attachment.filename}
 									</label>
@@ -49,5 +49,8 @@ module.exports = React.createClass({
 	},
 	checkedHandler: function(id){
 		console.log(id);
-	}
+	},
+	handleChange: function(){
+	   console.log('handleChange');
+	 },
 });

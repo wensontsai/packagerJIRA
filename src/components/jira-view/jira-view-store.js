@@ -92,7 +92,7 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 		JiraApi.queryIssue(paramsObj, function(data){
 			if(data !== 'fail'){
 				console.log(data.fields.attachment);
-				this.completeIssue(issue, data.fields.attachment);
+				this.completeIssue(data.key, data.fields.attachment);
 				this.setState({ errorMsg: ''});
 				return;
 			}
