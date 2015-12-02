@@ -43,11 +43,11 @@ module.exports = React.createClass({
 											</label>
 										</div>
 									)
-								}.bind(this))}
+								}, this )}
 							</div>
 						</div>
 					)
-				}.bind(this))}
+				}, this )}
 			</div>
 		);	
 	},
