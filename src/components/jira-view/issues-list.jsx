@@ -11,46 +11,50 @@ module.exports = React.createClass({
 		LinkedStateMixin,
 		StateMixin.connect(JiraViewStore)
 	],
+	getInitialState: function(){
+		return {
+			checked : false
+		}
+	},
 	componentWillMount: function(){
 		// Actions.getImages(this.props.params.id);
 	},
 	render: function(){
 		return(
 			<div className="topic">
-				{this.renderIssues()}
+				{this.state.issuesArray.map(function(issue){
+					return (
+						<div className="issuesArea" key={issue.id} {...issue}>
+							<div className="issueText">
+								{issue.issue}
+							</div>
+							<div className="attachments">
+								{issue.attachments.map(function(attachment, i){
+									return (
+										<div key={i}>
+											<label>
+												<input 
+													checked={this.state.checked}
+													value={attachment.content}
+													type="checkbox"
+													onChange={this.handleChange}
+												/>
+												{attachment.filename}
+											</label>
+										</div>
+									)
+								}.bind(this))}
+							</div>
+						</div>
+					)
+				}.bind(this))}
 			</div>
 		);	
 	},
-	renderIssues: function(){
-		return this.state.issuesArray.map(function(issue){
-			return (
-				<div className="issuesArea" key={issue.id} {...issue}>
-					<div className="issueText">
-						{issue.issue}
-					</div>
-					<div className="attachments">
-						{issue.attachments.map(function(attachment, i){
-							return (
-								<div key={i}>
-									<label>
-										<input 
-											type="checkbox"
-											onChange={this.handleChange}
-										/>
-										{attachment.filename}
-									</label>
-								</div>
-							)
-						})}
-					</div>
-				</div>
-			)
-		});
-	},
-	checkedHandler: function(id){
-		console.log(id);
-	},
 	handleChange: function(){
 	   console.log('handleChange');
+	   this.setState({
+				checked: !this.state.checked
+	   });
 	 },
 });
