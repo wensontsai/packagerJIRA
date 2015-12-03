@@ -6,6 +6,7 @@ var Actions = require('../../actions');
 
 var JiraViewStore = require('./jira-view-store');
 
+
 module.exports = React.createClass({
 	mixins: [
 		LinkedStateMixin,
@@ -21,34 +22,24 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		return(
-			<div className="topic">
-				{this.state.issuesArray.map(function(issue){
+			<div className="attachments">
+				{this.props.map(function(attachment, i){
 					return (
-						<div className="issuesArea" key={issue.id} {...issue}>
-							<div className="issueText">
-								{issue.issue}
-							</div>
-							<div className="attachments">
-								{issue.attachments.map(function(attachment){
-									return (
-										<div key={attachment.id}>
-											<label>
-												<input 
-													checked={this.state.isChecked}
-													value={attachment.content}
-													type="checkbox"
-													onChange={this.toggleChange}
-												/>
-												{attachment.filename}
-											</label>
-										</div>
-									)
-								}, this )}
-							</div>
+						<div key={i}>
+							<label>
+								<input 
+									checked={this.state.isChecked}
+									value={attachment.content}
+									type="checkbox"
+									onChange={this.toggleChange}
+								/>
+								{attachment.filename}
+							</label>
 						</div>
 					)
 				}, this )}
 			</div>
+						
 		);	
 	},
 	toggleChange: function() {
@@ -56,10 +47,9 @@ module.exports = React.createClass({
       	isChecked: !this.state.isChecked // flip boolean value
 	    }, 
 	    function() {
-	      // console.log(this.state.issueObj.attachments);
+	      console.log(this.state);
 	    }.bind(this)
     );
-    console.log(this);
   },
 	handleChange: function(i, event){
 	   console.log('handleChange');
@@ -69,10 +59,4 @@ module.exports = React.createClass({
 				checked: !this.state.checked
 	   });
 	 },
-	 addToDownload: function(id){
-
-	 },
-	 removeToDownload: function(id){
-
-	 }
 });
