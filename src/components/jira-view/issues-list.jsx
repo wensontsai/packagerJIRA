@@ -53,7 +53,9 @@ module.exports = React.createClass({
 		);	
 	},
 	toggleChange: function(id) {
+		console.log(id);
    		Actions.checkAttachment(id);
+   		console.log(this.state.issuesArray);
   	},
 	handleChange: function(i, event){
 	   	console.log('handleChange');

@@ -59,9 +59,8 @@ module.exports = React.createClass({
 	},
 	processAttachments: function(){
 		console.log(this.state.issueObj);
-		var attachmentsArray = this.state.issueObj.attachments;
+		var attachmentsArray = this.state.issueObj.attachments.bind(this);
 		for(var item in attachmentsArray){
-			console.log(item);
 			if(attachmentsArray[item].isChecked){
 				console.log(attachmentsArray[item].isChecked);		
 			}

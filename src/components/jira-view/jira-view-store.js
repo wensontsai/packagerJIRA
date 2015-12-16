@@ -22,24 +22,37 @@ module.exports = Reflux.createStore({
 			// JIRA issues //
 			issuesArray : [],
 			token : '',
-			issueObj: {}
+			issueObj: {},
+			attachmentsToGet: []
 		}
 	},
 	checkAttachment: function(id){
-		var newIssueObj = this.state.issueObj;
-		for(item in this.state.issueObj.attachments){
-			if(this.state.issueObj.attachments[item].id === id){
-				if(newIssueObj.attachments[item].isChecked === 'checked'){
-					newIssueObj.attachments[item].isChecked = '';
-				} else {
-					newIssueObj.attachments[item].isChecked = 'checked'
-				}
-			}
+		console.log(id);
+		var tempAttachmentsToGet = this.state.attachmentsToGet;
+		if(tempAttachmentsToGet.indexOf(id) > -1){
+			tempAttachmentsToGet.splice(tempAttachmentsToGet.indexOf(id),1);
+		} else {
+			tempAttachmentsToGet.push(id);
 		}
 		this.setState({
-			issueObj: newIssueObj
+			attachmentsToGet: tempAttachmentsToGet
 		});
-		console.log(this.state.issueObj);
+		console.log(this.state.attachmentsToGet);
+		// var newIssuesArray = this.state.issuesArray;
+		// for(var objIssue in newIssuesArray){
+		// 	for(var item in objIssue){
+		// 		if(objIssue.attachments[item].id === id){
+		// 			if(objIssue.attachments[item].isChecked === 'checked'){
+		// 				objIssue.attachments[item].isChecked = '';
+		// 			} else {
+		// 				objIssue.attachments[item].isChecked = 'checked'
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// this.setState({
+		// 	issuesArray: newIssuesArray
+		// });
 	},
 	checkCookie: function(){
 		var value = document.cookie;
