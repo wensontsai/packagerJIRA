@@ -31,7 +31,7 @@ module.exports = React.createClass({
 									checked={this.state.isChecked}
 									value={attachment.content}
 									type="checkbox"
-									onChange={this.toggleChange}
+									onChange={this.toggleChange.bind(this, attachment.id)}
 								/>
 								{attachment.filename}
 							</label>
@@ -42,14 +42,16 @@ module.exports = React.createClass({
 						
 		);	
 	},
-	toggleChange: function() {
-    this.setState({
-      	isChecked: !this.state.isChecked // flip boolean value
-	    }, 
-	    function() {
-	      console.log(this.state);
-	    }.bind(this)
-    );
+	toggleChange: function(id) {
+		console.log('fucking shit! ^^^');
+		console.log(id);
+		// this.setState({
+		//   	isChecked: !this.state.isChecked // flip boolean value
+		//     }, 
+		//     function() {
+		//       console.log(this.state);
+		//     }.bind(this)
+		// );
   },
 	handleChange: function(i, event){
 	   console.log('handleChange');
