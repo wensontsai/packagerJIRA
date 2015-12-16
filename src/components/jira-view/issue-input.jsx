@@ -36,7 +36,12 @@ module.exports = React.createClass({
 					<IssuesList />
 				</div>
 				<div>
-					<button className="runButton">meowrr</button>
+					<button 
+						className="runButton"
+						onClick={this.processAttachments}
+					>
+					meowrr
+					</button>
 				</div>
 			</div>
 		)
@@ -51,6 +56,14 @@ module.exports = React.createClass({
 			return;
 		}
 		this.setState({ errorMsg: "Please enter legit JIRA issue number!"});
+	},
+	processAttachments: function(){
+		for(item in this.state.issueObj.attachments[item]){
+			if(this.state.issueObj.attachments[item].isChecked === 'checked'){
+				console.log(this.state.issueObj.attachments[item].id);
+			}
+		}
 	}
+
 
 });

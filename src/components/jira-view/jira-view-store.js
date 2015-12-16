@@ -26,40 +26,22 @@ module.exports = Reflux.createStore({
 		}
 	},
 	checkAttachment: function(id){
-		console.log(this.state.issueObj);
-		console.log('fucking shit! ^^^');
 		for(item in this.state.issueObj.attachments){
+			var newIssueObj = this.state.issueObj;
 			if(this.state.issueObj.attachments[item].id === id){
-				console.log('YASŠ');
-				var newIssueObj = this.state.issueObj;
 				if(newIssueObj.attachments[item].isChecked === 'checked'){
 					newIssueObj.attachments[item].isChecked = '';
 				} else {
 					newIssueObj.attachments[item].isChecked = 'checked'
 				}
-				this.setState({
-					issueObj: newIssueObj
-				});
-				console.log(this.state.issueObj);
+			} else {
+				newIssueObj.attachments[item].isChecked = '';
 			}
 		}
-		// this.setState({
-		// 	issueObj:{
-		// 		attachments[4]:{
-		// 			isChecked : 'checked'
-		// 		}
-		// 	}
-		// });
-		console.log(id);
-
-		// this.setState({
-		//   	isChecked: !this.state.isChecked // flip boolean value
-		//     }, 
-		//     function() {
-		//       console.log(this.state);
-		//     }.bind(this)
-		// );
-		// console.log(this);
+		this.setState({
+			issueObj: newIssueObj
+		});
+		console.log(this.state.issueObj);
 	},
 	checkCookie: function(){
 		var value = document.cookie;
