@@ -26,16 +26,14 @@ module.exports = Reflux.createStore({
 		}
 	},
 	checkAttachment: function(id){
+		var newIssueObj = this.state.issueObj;
 		for(item in this.state.issueObj.attachments){
-			var newIssueObj = this.state.issueObj;
 			if(this.state.issueObj.attachments[item].id === id){
 				if(newIssueObj.attachments[item].isChecked === 'checked'){
 					newIssueObj.attachments[item].isChecked = '';
 				} else {
 					newIssueObj.attachments[item].isChecked = 'checked'
 				}
-			} else {
-				newIssueObj.attachments[item].isChecked = '';
 			}
 		}
 		this.setState({

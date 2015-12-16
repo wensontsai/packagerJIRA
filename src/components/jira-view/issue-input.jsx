@@ -58,10 +58,16 @@ module.exports = React.createClass({
 		this.setState({ errorMsg: "Please enter legit JIRA issue number!"});
 	},
 	processAttachments: function(){
-		for(item in this.state.issueObj.attachments[item]){
-			if(this.state.issueObj.attachments[item].isChecked === 'checked'){
-				console.log(this.state.issueObj.attachments[item].id);
+		console.log(this.state.issueObj);
+		var attachmentsArray = this.state.issueObj.attachments;
+		for(var item in attachmentsArray){
+			console.log(item);
+			if(attachmentsArray[item].isChecked){
+				console.log(attachmentsArray[item].isChecked);		
 			}
+			// if(this.state.issueObj.attachments[item].isChecked === 'checked'){
+			// 	console.log(this.state.issueObj.attachments[item].id);
+			// }
 		}
 	}
 
