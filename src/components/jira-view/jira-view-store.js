@@ -108,7 +108,18 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 		JiraApi.queryIssue(paramsObj, function(data){
 			if(data !== 'fail'){
 				console.log(data.fields.attachment);
-				this.completeIssue(data.key, data.fields.attachment);
+				var insertObj = Object.create(null);
+				insertObj = {
+					issue: data.key,
+					attachments: data.fields.attachment
+				};
+				// var insertObj = Object.create(null, {
+				// 	issue: data.key,
+				// 	attachments: data.fields.attachment
+				// });
+
+
+				this.completeIssue(insertObj);
 				this.setState({ errorMsg: ''});
 				return;
 			}
@@ -119,12 +130,9 @@ console.log(splitVal[0] +'='+ splitVal[1]);
 			}
 		}.bind(this) );
 	},
-	completeIssue: function(issue, attachments){
+	completeIssue: function(insertObj){
 		this.setState({
-			issueObj: {
-				issue: issue,
-				attachments: attachments
-			}
+			issueObj: insertObj
 		});
 		this.setState({ issuesArray: this.state.issuesArray.concat([this.state.issueObj]) });
 		console.log(this.state.issuesArray);

@@ -65,9 +65,6 @@ module.exports = React.createClass({
 			if(attachmentsArray[item].isChecked){
 				console.log(attachmentsArray[item].isChecked);		
 			}
-			// if(this.state.issueObj.attachments[item].isChecked === 'checked'){
-			// 	console.log(this.state.issueObj.attachments[item].id);
-			// }
 		}
 	}
 
