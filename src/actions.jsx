@@ -7,5 +7,7 @@ module.exports = Reflux.createActions([
 	// query routes //
 	'getIssue',
 	// JIRA issues //
-	'addToIssues'
+	'addToIssues',
+	// JIRA attachments //
+	'checkAttachment'
 ]);
