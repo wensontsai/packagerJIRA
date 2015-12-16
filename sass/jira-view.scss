@@ -3,3 +3,20 @@
 	background-color: red;
 	height: 250px;
 }
+.jira-view .issuesArea {
+	display: block;
+	clear: both;
+}
+.jira-view .issuesArea .issueText{
+	float: left;
+}
+.jira-view .issuesArea .attachments {
+	float: right;
+}
+
+.jira-view .runButton {
+	clear: both;
+	float: right;
+	margin: 3rem;
+	display: block;
+}
