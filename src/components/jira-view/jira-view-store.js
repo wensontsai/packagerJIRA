@@ -26,13 +26,13 @@ module.exports = Reflux.createStore({
 			attachmentsToGet: []
 		}
 	},
-	checkAttachment: function(id){
-		console.log(id);
+	checkAttachment: function(content){
+		console.log(content);
 		var tempAttachmentsToGet = this.state.attachmentsToGet;
-		if(tempAttachmentsToGet.indexOf(id) > -1){
-			tempAttachmentsToGet.splice(tempAttachmentsToGet.indexOf(id),1);
+		if(tempAttachmentsToGet.indexOf(content) > -1){
+			tempAttachmentsToGet.splice(tempAttachmentsToGet.indexOf(content),1);
 		} else {
-			tempAttachmentsToGet.push(id);
+			tempAttachmentsToGet.push(content);
 		}
 		this.setState({
 			attachmentsToGet: tempAttachmentsToGet

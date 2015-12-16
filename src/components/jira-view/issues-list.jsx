@@ -38,7 +38,7 @@ module.exports = React.createClass({
 													checked={attachment.isChecked}
 													value={attachment.content}
 													type="checkbox"
-													onChange={this.toggleChange.bind(this, attachment.id)}
+													onChange={this.toggleChange.bind(this, attachment.content)}
 												/>
 												{attachment.filename}
 											</label>
@@ -52,9 +52,9 @@ module.exports = React.createClass({
 			</div>
 		);	
 	},
-	toggleChange: function(id) {
-		console.log(id);
-   		Actions.checkAttachment(id);
+	toggleChange: function(content) {
+		console.log(content);
+   		Actions.checkAttachment(content);
    		console.log(this.state.issuesArray);
   	},
 	handleChange: function(i, event){
