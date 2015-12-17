@@ -120,26 +120,52 @@ apiRoutes.post('/downloadAttachments', function(req, response, next){
         var downloadDest = './downloads/file_'+fileCount;
         console.log(downloadDest);
         download(req.body['attachmentsArray[]'][url], downloadDest, function(data){
-            response.send(data);
+            console.log(data);
         });
         fileCount++;
     }
-    // for(var j=0; j<req.body.attachmentsArray.length; j++){
-    //     console.log(req.body.attachmentsArray);
-    //     console.log('^^^');
-    // };
+
     function download(url, dest, cb) {
-      var file = fs.createWriteStream(dest);
-      var request = https.get(url, function(response) {
-        response.pipe(file);
-        file.on('finish', function() {
-          file.close(cb);  // close() is async, call cb after close completes.
+        var file = fs.createWriteStream(dest);
+        var path = url.split("//");
+        console.log(path[1]);
+        var options = {
+          path: path[1],
+          headers: {
+            "Authorization" : basicAuth,
+            accept : '*/*'
+          },
+          method: 'GET'
+        };
+
+        var request = https.get(url, function(response) {
+            // check if response is success
+            if (response.statusCode !== 200) {
+                return cb('Response status was ' + response.statusCode);
+            }
+            response.pipe(file);
+
+            file.on('finish', function() {
+                file.close(cb);  // close() is async, call cb after close completes.
+            });
         });
-      }).on('error', function(err) { // Handle errors
-        fs.unlink(dest); // Delete the file async. (But we don't check the result)
-        if (cb) cb(err.message);
-      });
-    };        
+        // check for request error too
+        request.on('error', function (err) {
+            fs.unlink(dest);
+
+            if (cb) {
+                return cb(err.message);
+            }
+        });
+
+        file.on('error', function(err) { // Handle errors
+            fs.unlink(dest); // Delete the file async. (But we don't check the result)
+
+            if (cb) {
+                return cb(err.message);
+            }
+        });
+    };     
 });
 
 
