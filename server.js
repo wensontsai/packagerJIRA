@@ -115,12 +115,17 @@ apiRoutes.post('/downloadAttachments', function(req, response, next){
     console.log(req.body['attachmentsArray[]']);
     var fileCount = 1;
     console.log("==========");
+
+    // cat jpeg test works! //
+    req.body['attachmentsArray[]']=['https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a.jpeg'];
+    //
+
     for(url in req.body['attachmentsArray[]']){
         console.log(req.body['attachmentsArray[]'][url]);
         var downloadDest = './downloads/file_'+fileCount;
         console.log(downloadDest);
         download(req.body['attachmentsArray[]'][url], downloadDest, function(data){
-            console.log(data);
+            // console.log(data);
         });
         fileCount++;
     }
@@ -135,7 +140,7 @@ apiRoutes.post('/downloadAttachments', function(req, response, next){
             "Authorization" : basicAuth,
             accept : '*/*'
           },
-          method: 'GET'
+          method: 'POST'
         };
 
         var request = https.get(url, function(response) {
