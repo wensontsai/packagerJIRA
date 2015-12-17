@@ -38,21 +38,11 @@ module.exports = Reflux.createStore({
 			attachmentsToGet: tempAttachmentsToGet
 		});
 		console.log(this.state.attachmentsToGet);
-		// var newIssuesArray = this.state.issuesArray;
-		// for(var objIssue in newIssuesArray){
-		// 	for(var item in objIssue){
-		// 		if(objIssue.attachments[item].id === id){
-		// 			if(objIssue.attachments[item].isChecked === 'checked'){
-		// 				objIssue.attachments[item].isChecked = '';
-		// 			} else {
-		// 				objIssue.attachments[item].isChecked = 'checked'
-		// 			}
-		// 		}
-		// 	}
-		// }
-		// this.setState({
-		// 	issuesArray: newIssuesArray
-		// });
+	},
+	downloadAttachments: function(){
+		JiraApi.downloadAttachments(this.state.attachmentsToGet, function(data){
+			console.log(data);
+		}.bind(this) );
 	},
 	checkCookie: function(){
 		var value = document.cookie;

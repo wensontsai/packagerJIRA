@@ -68,7 +68,21 @@ module.exports = {
 			// .fail((jqXhr) => {
 			//   this.actions.addCharacterFail(jqXhr.responseJSON.message);
 			// });
-		 
+	},
+	downloadAttachments : function(attachmentsArray, callback){
+		$.ajax({
+				type: 'POST',
+				url: '/api/downloadAttachments',
+				data: {
+					attachmentsArray : attachmentsArray
+				},
+			})
+			.done((data) => {
+				callback(data);
+			})
+			// .fail((jqXhr) => {
+			//   this.actions.addCharacterFail(jqXhr.responseJSON.message);
+			// });
 	},
 	// get: function(url){
 	// 	return fetch(rootUrl + url, {

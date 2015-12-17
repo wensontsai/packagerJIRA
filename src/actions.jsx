@@ -10,5 +10,5 @@ module.exports = Reflux.createActions([
 	'addToIssues',
 	// JIRA attachments //
 	'checkAttachment',
-	'getAttachments'
+	'downloadAttachments'
 ]);
