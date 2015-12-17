@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var http = require('http');
+var https = require('https');
 var fs = require('fs');
 
 var port = 8000;
@@ -112,14 +112,14 @@ apiRoutes.post('/queryIssue', function(req, response, next){
 
 apiRoutes.post('/downloadAttachments', function(req, response, next){
     console.log("fired!!");
-    console.log(req.body);
+    console.log(req.body['attachmentsArray[]']);
     var fileCount = 1;
     console.log("==========");
-    for(url in req.body.attachmentsArray){
-        console.log(req.body.attachmentsArray[url]);
+    for(url in req.body['attachmentsArray[]']){
+        console.log(req.body['attachmentsArray[]'][url]);
         var downloadDest = './downloads/file_'+fileCount;
         console.log(downloadDest);
-        download(req.body.attachmentsArray[url], downloadDest, function(data){
+        download(req.body['attachmentsArray[]'][url], downloadDest, function(data){
             response.send(data);
         });
         fileCount++;
@@ -130,7 +130,7 @@ apiRoutes.post('/downloadAttachments', function(req, response, next){
     // };
     function download(url, dest, cb) {
       var file = fs.createWriteStream(dest);
-      var request = http.get(url, function(response) {
+      var request = https.get(url, function(response) {
         response.pipe(file);
         file.on('finish', function() {
           file.close(cb);  // close() is async, call cb after close completes.
